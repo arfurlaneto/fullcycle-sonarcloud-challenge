@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  server:
+    container_name: rate-limiter-server
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./.env:/.env
+    networks:
+      - rate-limiter
+  redis:
+    container_name: rate-limiter-redis
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - rate-limiter
+
+networks:
+  rate-limiter:
+    name: rate-limiter
+    driver: bridge
